@@ -2,8 +2,9 @@ package com.laptrinhjavaweb.service.impl;
 
 import com.laptrinhjavaweb.converter.UserConverter;
 import com.laptrinhjavaweb.dto.UserDTO;
-import com.laptrinhjavaweb.entity.RoleEntity;
+import com.laptrinhjavaweb.entity.CommentEntity;
 import com.laptrinhjavaweb.entity.UserEntity;
+import com.laptrinhjavaweb.repository.CommentRepository;
 import com.laptrinhjavaweb.repository.RoleRepository;
 import com.laptrinhjavaweb.repository.UserRepository;
 import com.laptrinhjavaweb.service.IUserService;
@@ -28,21 +29,22 @@ public class UserService implements IUserService {
     private RoleRepository roleRepository;
 
     @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
     private UserConverter converter;
 
     @Override
     public UserDTO save(UserDTO dto) {
         UserEntity entity = new UserEntity();
+        UserEntity oldUser = new UserEntity();
         if(dto.getId() != null){
-            entity = userRepository.findOne(dto.getId());
-            entity = converter.toEntity(dto,entity);
+            oldUser = userRepository.findOne(dto.getId());
+            entity = converter.toEntity(dto,oldUser);
+            entity.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
         }else{
             entity = converter.toEntity(dto);
             entity.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
-            entity.setStatus(1);
-            List<RoleEntity> roles = new ArrayList<>();
-            roles.add(roleRepository.findOneByCode("USER"));
-            entity.setRoles(roles);
         }
         return converter.toDTO(userRepository.save(entity));
     }
@@ -51,9 +53,14 @@ public class UserService implements IUserService {
     @Override
     public void delete(Long[] ids) {
         for(Long id:ids){
+            UserEntity userEntity = userRepository.findOne(id);
+            for(CommentEntity item: userEntity.getComments()){
+                commentRepository.delete(item.getId());
+            }
             userRepository.delete(id);
         }
     }
+
 
     @Override
     public List<UserDTO> findAll(Pageable pageable) {

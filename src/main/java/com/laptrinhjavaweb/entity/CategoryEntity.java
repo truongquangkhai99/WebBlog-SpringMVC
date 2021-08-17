@@ -1,16 +1,12 @@
 package com.laptrinhjavaweb.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "Category")
 @Table(name = "category")
 public class CategoryEntity extends BaseEntity{
-
     @Column(name = "name")
     private String name;
 
@@ -18,16 +14,24 @@ public class CategoryEntity extends BaseEntity{
     private String code;
 
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY)
     private List<NewEntity> news = new ArrayList<>();
 
-
-    public List<NewEntity> getNews() {
-        return news;
+    public CategoryEntity(String name, String code) {
+        this.name = name;
+        this.code = code;
     }
 
-    public void setNews(List<NewEntity> news) {
-        this.news = news;
+    public CategoryEntity() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "CategoryEntity{" +
+                "name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                '}';
     }
 
     public String getName() {
@@ -44,5 +48,13 @@ public class CategoryEntity extends BaseEntity{
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public List<NewEntity> getNews() {
+        return news;
+    }
+
+    public void setNews(List<NewEntity> news) {
+        this.news = news;
     }
 }

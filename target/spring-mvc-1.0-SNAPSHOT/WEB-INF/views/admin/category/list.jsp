@@ -75,7 +75,7 @@
 															<td>${item.code}</td>
 															<td>
 
-																<c:url var="editCategoryURL" value="/quan-tri/the-loai/danh-sach">
+																<c:url var="editCategoryURL" value="/quan-tri/the-loai/chinh-sua">
 																	<c:param name="id" value="${item.id}"/>
 																</c:url>
 

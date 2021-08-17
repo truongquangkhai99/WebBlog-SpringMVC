@@ -64,7 +64,7 @@
 														<th>Username</th>
 														<th>Fullname</th>
 														<th>Status</th>
-														<th>Role</th>
+
 
 
 													</tr>
@@ -81,9 +81,9 @@
 															<c:if test="${item.status == 0}">
 																<td>Vô hiệu hóa</td>
 															</c:if>
-															<td>${item.role.name}</td>
+
 															<td>
-																<c:url var="updateUserURL" value="/quan-tri/nguoi-dung/chinh-tri">
+																<c:url var="updateUserURL" value="/quan-tri/nguoi-dung/chinh-sua">
 																	<c:param name="id" value="${item.id}"/>
 																</c:url>
 																<a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"

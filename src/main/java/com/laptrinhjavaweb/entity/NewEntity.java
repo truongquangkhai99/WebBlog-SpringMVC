@@ -4,13 +4,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "new")
+@Entity(name = "News")
+@Table(name = "news")
 public class NewEntity extends BaseEntity{
-
-
-
-
     @Column(name="title")
     private String title;
 
@@ -31,14 +27,6 @@ public class NewEntity extends BaseEntity{
     @OneToMany(mappedBy = "baiViet",fetch = FetchType.LAZY)
     private List<CommentEntity> comments = new ArrayList<>();
 
-
-    public List<CommentEntity> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentEntity> comments) {
-        this.comments = comments;
-    }
 
     public String getTitle() {
         return title;
@@ -78,5 +66,13 @@ public class NewEntity extends BaseEntity{
 
     public void setCategory(CategoryEntity category) {
         this.category = category;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 }

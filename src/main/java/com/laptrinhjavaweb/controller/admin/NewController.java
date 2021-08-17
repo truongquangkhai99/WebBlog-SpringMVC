@@ -30,7 +30,7 @@ public class NewController {
     @RequestMapping(value = "quan-tri/bai-viet/danh-sach")
     public ModelAndView showList(@RequestParam(value = "page",required = false) Integer page,
                                  @RequestParam(value = "limit",required = false) Integer limit,
-                                 HttpServletRequest request                                   ){
+                                 HttpServletRequest request){
         ModelAndView mav = new ModelAndView("/admin/new/list");
         NewDTO model = new NewDTO();
         if(page != null && limit != null) {
@@ -50,7 +50,8 @@ public class NewController {
     }
 
     @RequestMapping(value = "quan-tri/bai-viet/chinh-sua")
-    public ModelAndView editNew(@RequestParam(value = "id",required = false) Long id, HttpServletRequest request){
+    public ModelAndView editNew(@RequestParam(value = "id",required = false) Long id,
+                                HttpServletRequest request){
         ModelAndView mav = new ModelAndView("/admin/new/edit");
         NewDTO model = new NewDTO();
         if(id != null){

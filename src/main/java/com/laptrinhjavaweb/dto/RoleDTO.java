@@ -1,7 +1,5 @@
 package com.laptrinhjavaweb.dto;
 
-import javax.persistence.Column;
-
 public class RoleDTO extends AbstractDTO<RoleDTO>{
 
     private String name;

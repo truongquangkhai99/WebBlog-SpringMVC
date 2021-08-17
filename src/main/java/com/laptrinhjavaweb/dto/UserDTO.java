@@ -1,31 +1,23 @@
 package com.laptrinhjavaweb.dto;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class UserDTO extends AbstractDTO<UserDTO> {
-
-
     private String userName;
-
 
     private String password;
 
-
     private String fullName;
-
 
     private Integer status;
 
-    private Map<String,String> roles = new HashMap<>();
+   private String roleCode;
 
 
-    public Map<String, String> getRoles() {
-        return roles;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setRoles(Map<String, String> roles) {
-        this.roles = roles;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
     }
 
     public String getUserName() {

@@ -63,7 +63,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right">Hình đại diện</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control" id="thumbnail" name="thumbnail"/>
+                                <form:input  class="form-control" path="thumbnail" id="thumbnail"/>
                             </div>
                         </div>
                         <br/>

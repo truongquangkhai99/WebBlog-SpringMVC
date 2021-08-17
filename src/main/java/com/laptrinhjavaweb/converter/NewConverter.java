@@ -12,25 +12,24 @@ import org.springframework.stereotype.Component;
 public class NewConverter {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryRepository repository;
 
-    public NewEntity toEntity(NewDTO dto) {
-        NewEntity result = new NewEntity();
-        BeanUtils.copyProperties(dto,result);
-        CategoryEntity category = categoryRepository.findOneByCode(dto.getCategoryCode());
-        result.setCategory(category);
-        return result;
+    public NewEntity toEntity(NewDTO dto){
+        NewEntity entity = new NewEntity();
+        BeanUtils.copyProperties(dto,entity);
+        entity.setCategory(repository.findOneByCode(dto.getCategoryCode()));
+        return entity;
     }
 
-    public NewDTO toDTO(NewEntity entity) {
-        NewDTO result = new NewDTO();
-        result.setCategoryCode(entity.getCategory().getCode());
-        BeanUtils.copyProperties(entity,result);
-        return result;
+    public NewDTO toDTO(NewEntity entity){
+        NewDTO dto = new NewDTO();
+        BeanUtils.copyProperties(entity,dto);
+        dto.setCategoryCode(entity.getCategory().getCode());
+        return dto;
     }
 
     public NewEntity toEntity(NewDTO dto,NewEntity result) {
-        CategoryEntity category = categoryRepository.findOneByCode(dto.getCategoryCode());
+        CategoryEntity category = repository.findOneByCode(dto.getCategoryCode());
         result.setCategory(category);
         BeanUtils.copyProperties(dto,result);
         return result;

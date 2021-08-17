@@ -4,11 +4,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "User")
 @Table(name = "user")
 public class UserEntity extends BaseEntity{
-
-
 
     @Column(name = "username")
     private String userName;
@@ -30,24 +28,8 @@ public class UserEntity extends BaseEntity{
     )
     private List<RoleEntity> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<CommentEntity> comments = new ArrayList<>();
-
-
-
-
-
-
-
-
-
-    public List<CommentEntity> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentEntity> comments) {
-        this.comments = comments;
-    }
 
     public String getUserName() {
         return userName;
@@ -87,5 +69,13 @@ public class UserEntity extends BaseEntity{
 
     public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 }

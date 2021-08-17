@@ -1,29 +1,11 @@
 package com.laptrinhjavaweb.dto;
 
 public class NewDTO extends AbstractDTO<NewDTO>{
-
-
     private String title;
-
-
-    private String thumbnail;
-
-
-    private String shortDescription;
-
-
     private String content;
-
+    private String shortDescription;
     private String categoryCode;
-
-
-    public String getCategoryCode() {
-        return categoryCode;
-    }
-
-    public void setCategoryCode(String categoryCode) {
-        this.categoryCode = categoryCode;
-    }
+    private String thumbnail;
 
     public String getTitle() {
         return title;
@@ -33,12 +15,12 @@ public class NewDTO extends AbstractDTO<NewDTO>{
         this.title = title;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getContent() {
+        return content;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getShortDescription() {
@@ -49,11 +31,19 @@ public class NewDTO extends AbstractDTO<NewDTO>{
         this.shortDescription = shortDescription;
     }
 
-    public String getContent() {
-        return content;
+    public String getCategoryCode() {
+        return categoryCode;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }
