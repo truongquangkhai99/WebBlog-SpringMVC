@@ -4,9 +4,9 @@ import com.laptrinhjavaweb.converter.UserConverter;
 import com.laptrinhjavaweb.dto.UserDTO;
 import com.laptrinhjavaweb.entity.CommentEntity;
 import com.laptrinhjavaweb.entity.UserEntity;
-import com.laptrinhjavaweb.repository.CommentRepository;
-import com.laptrinhjavaweb.repository.RoleRepository;
 import com.laptrinhjavaweb.repository.UserRepository;
+import com.laptrinhjavaweb.service.ICommentService;
+import com.laptrinhjavaweb.service.INewService;
 import com.laptrinhjavaweb.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service(value = "userService")
 public class UserService implements IUserService {
 
     @Autowired
@@ -26,10 +26,10 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private INewService newService;
 
     @Autowired
-    private CommentRepository commentRepository;
+    private ICommentService commentService;
 
     @Autowired
     private UserConverter converter;
@@ -37,9 +37,8 @@ public class UserService implements IUserService {
     @Override
     public UserDTO save(UserDTO dto) {
         UserEntity entity = new UserEntity();
-        UserEntity oldUser = new UserEntity();
         if(dto.getId() != null){
-            oldUser = userRepository.findOne(dto.getId());
+            UserEntity oldUser = userRepository.findOne(dto.getId());
             entity = converter.toEntity(dto,oldUser);
             entity.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
         }else{
@@ -55,8 +54,11 @@ public class UserService implements IUserService {
         for(Long id:ids){
             UserEntity userEntity = userRepository.findOne(id);
             for(CommentEntity item: userEntity.getComments()){
-                commentRepository.delete(item.getId());
+                commentService.delete(new Long[]{item.getId()});
             }
+            newService.findByCreatedBy(userEntity.getUserName()).forEach(item ->{
+                newService.delete(new Long[]{item.getId()});
+            });
             userRepository.delete(id);
         }
     }
@@ -81,6 +83,15 @@ public class UserService implements IUserService {
     public UserDTO findById(Long id) {
         return converter.toDTO(userRepository.findOne(id));
     }
+
+    @Override
+    public UserDTO findbyUserName(String userName) {
+        UserEntity entity = userRepository.findOneByUserName(userName);
+        if(entity == null) return null;
+        else return converter.toDTO(entity);
+    }
+
+
 }
 
 

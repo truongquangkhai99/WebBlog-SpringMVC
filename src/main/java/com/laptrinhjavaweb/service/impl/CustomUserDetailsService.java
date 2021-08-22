@@ -8,7 +8,6 @@ import com.laptrinhjavaweb.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,6 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         MyUser myUser = new MyUser(userEntity.getUserName(),userEntity.getPassword(),
                 true,true,true,true,authorities);
         myUser.setFullName(userEntity.getFullName());
+        myUser.setId(userEntity.getId());
         return myUser;
     }
 }

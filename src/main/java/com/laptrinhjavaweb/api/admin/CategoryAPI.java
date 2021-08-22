@@ -4,7 +4,10 @@ import com.laptrinhjavaweb.converter.CategoryConverter;
 import com.laptrinhjavaweb.dto.CategoryDTO;
 import com.laptrinhjavaweb.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController(value = "categoryAPIOfAdmin")
 public class CategoryAPI {
@@ -16,13 +19,13 @@ public class CategoryAPI {
     private CategoryConverter converter;
 
     @PostMapping("/api/category")
-    public CategoryDTO createCategory(@RequestBody CategoryDTO CategoryDTO){
-        return categoryService.save(CategoryDTO);
+    public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO){
+        return categoryService.save(categoryDTO);
     }
 
     @PutMapping("/api/category")
-    public CategoryDTO updateCategory(@RequestBody CategoryDTO CategoryDTO){
-        return categoryService.save(CategoryDTO);
+    public CategoryDTO updateCategory(@RequestBody CategoryDTO updateCategory){
+        return categoryService.save(updateCategory);
     }
 
 
@@ -31,5 +34,9 @@ public class CategoryAPI {
         categoryService.delete(ids);
     }
 
+    @GetMapping("/api/category")
+    public List<CategoryDTO> getCategory(){
 
+        return categoryService.findAll(new PageRequest(0,5));
+    }
 }

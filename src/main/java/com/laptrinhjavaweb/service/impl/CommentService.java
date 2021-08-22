@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service(value = "commentService")
 public class CommentService implements ICommentService {
 
     @Autowired
@@ -50,5 +50,15 @@ public class CommentService implements ICommentService {
         for(Long id:ids){
             commentRepository.delete(id);
         }
+    }
+
+    @Override
+    public Integer totalItem() {
+        return (int)commentRepository.count();
+    }
+
+    @Override
+    public CommentDTO findById(Long id) {
+        return converter.toDTO(commentRepository.findOne(id));
     }
 }

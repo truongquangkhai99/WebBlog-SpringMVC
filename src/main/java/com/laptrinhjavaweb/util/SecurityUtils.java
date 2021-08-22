@@ -22,4 +22,7 @@ public class SecurityUtils {
         }
         return results;
     }
+    public static Boolean isWriter(){
+        return getAuthorities().contains("WRITER");
+    }
 }

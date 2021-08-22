@@ -9,4 +9,6 @@ public interface ICommentService {
     List<CommentDTO> findAll(Pageable pageable);
     CommentDTO save(CommentDTO dto);
     void delete(Long[] ids);
+    Integer totalItem();
+    CommentDTO findById(Long id);
 }

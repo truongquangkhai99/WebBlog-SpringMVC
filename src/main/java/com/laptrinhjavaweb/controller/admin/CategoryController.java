@@ -6,8 +6,12 @@ import com.laptrinhjavaweb.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,6 +64,30 @@ public class CategoryController {
         }
         mav.addObject("model",model);
         return mav;
+    }
+
+
+    @RequestMapping(value = "quan-tri/the-loai/chinh-sua",method = RequestMethod.POST)
+    public String saveCategory(@ModelAttribute("model") CategoryDTO model,HttpServletRequest request){
+        String message = "";
+        if(model.getId() != null){
+            message = "update_success";
+
+        }
+        else{
+            message = "insert_success";
+        }
+        model = categoryService.save(model);
+        CsrfToken token = new HttpSessionCsrfTokenRepository().loadToken(request);
+        return "redirect:/quan-tri/the-loai/chinh-sua?id="+model.getId()+"&message="+message+"&"+token.getParameterName()+"="+token.getToken();
+    }
+
+    @RequestMapping(value = "quan-tri/the-loai/delete",method = RequestMethod.GET)
+    public String deleteCategory(@RequestParam("ids") Long[] ids,
+                                 HttpServletRequest request){
+        categoryService.delete(ids);
+        CsrfToken token = new HttpSessionCsrfTokenRepository().loadToken(request);
+        return "redirect:/quan-tri/the-loai/danh-sach?&message=delete_success&page=1&limit=5&"+token.getParameterName()+"="+token.getToken();
     }
 
 }

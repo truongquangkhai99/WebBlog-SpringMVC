@@ -5,8 +5,8 @@ import com.laptrinhjavaweb.dto.CategoryDTO;
 import com.laptrinhjavaweb.entity.CategoryEntity;
 import com.laptrinhjavaweb.entity.NewEntity;
 import com.laptrinhjavaweb.repository.CategoryRepository;
-import com.laptrinhjavaweb.repository.NewRepository;
 import com.laptrinhjavaweb.service.ICategoryService;
+import com.laptrinhjavaweb.service.INewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,14 +16,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service(value = "categoryService")
 public class CategoryService implements ICategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private NewRepository newRepository;
+    private INewService newService;
 
     @Autowired
     private CategoryConverter converter;
@@ -70,7 +70,7 @@ public class CategoryService implements ICategoryService {
         for(Long id:ids){
             CategoryEntity entity = categoryRepository.findOne(id);
             for(NewEntity item:entity.getNews()){
-                newRepository.delete(item.getId());
+                newService.delete(new Long[]{item.getId()});
             }
             categoryRepository.delete(id);
         }
@@ -79,5 +79,10 @@ public class CategoryService implements ICategoryService {
     @Override
     public Integer totalItem() {
         return (int)categoryRepository.count();
+    }
+
+    @Override
+    public CategoryDTO findByCode(String categoryCode) {
+        return converter.toDTO(categoryRepository.findOneByCode(categoryCode));
     }
 }

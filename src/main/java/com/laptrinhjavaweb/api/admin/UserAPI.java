@@ -16,8 +16,8 @@ public class UserAPI {
     }
 
     @PutMapping("/api/user")
-    public UserDTO updateUser(@RequestBody UserDTO userDTO){
-        return userService.save(userDTO);
+    public UserDTO updateUser(@RequestBody UserDTO updateUser){
+        return userService.save(updateUser);
     }
 
     @DeleteMapping("/api/user")

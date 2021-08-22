@@ -26,6 +26,14 @@ public class MessageUtil {
             result.put("message","Delete Success");
             result.put("alert","success");
         }
+        else if(message.equals("register-success")){
+            result.put("message","Đăng ký thành công");
+            result.put("alert","success");
+        }
+        else if(message.equals("register-error")){
+            result.put("message","Tên tài khoản đã tồn tại");
+            result.put("alert","danger");
+        }
 
         return result;
     }

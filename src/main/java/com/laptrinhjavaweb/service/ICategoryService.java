@@ -14,4 +14,5 @@ public interface ICategoryService {
     void delete(Long[] ids);
     Integer totalItem();
 
+    CategoryDTO findByCode(String categoryCode);
 }

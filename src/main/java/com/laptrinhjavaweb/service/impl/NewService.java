@@ -1,11 +1,13 @@
 package com.laptrinhjavaweb.service.impl;
 
+import com.laptrinhjavaweb.converter.CommentConverter;
 import com.laptrinhjavaweb.converter.NewConverter;
+import com.laptrinhjavaweb.dto.CommentDTO;
 import com.laptrinhjavaweb.dto.NewDTO;
 import com.laptrinhjavaweb.entity.CommentEntity;
 import com.laptrinhjavaweb.entity.NewEntity;
-import com.laptrinhjavaweb.repository.CommentRepository;
 import com.laptrinhjavaweb.repository.NewRepository;
+import com.laptrinhjavaweb.service.ICommentService;
 import com.laptrinhjavaweb.service.INewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -15,18 +17,20 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Service(value = "newService")
 public class NewService implements INewService {
 
     @Autowired
     private NewRepository newRepository;
 
     @Autowired
-    private CommentRepository commentRepository;
+    private ICommentService commentService;
 
     @Autowired
     private NewConverter converter;
 
+    @Autowired
+    private CommentConverter commentConverter;
 
 
     @Override
@@ -65,7 +69,7 @@ public class NewService implements INewService {
         for(Long id:ids){
             NewEntity newEntity = newRepository.findOne(id);
             for(CommentEntity item:newEntity.getComments()){
-                commentRepository.delete(item.getId());
+                commentService.delete(new Long[]{item.getId()});
             }
             newRepository.delete(id);
         }
@@ -74,6 +78,31 @@ public class NewService implements INewService {
     @Override
     public NewDTO findById(Long id) {
         return converter.toDTO(newRepository.findOne(id));
+    }
+
+    @Override
+    public List<NewEntity> findByCreatedBy(String userName) {
+        return newRepository.findOneByCreatedBy(userName);
+    }
+
+    @Override
+    public List<NewDTO> findAllByCreatedBy(String createdBy,Pageable pageable) {
+        List<NewDTO> results = new ArrayList<>();
+        List<NewEntity> entities = newRepository.findAllByCreatedBy(createdBy,pageable).getContent();
+        for(NewEntity item:entities) {
+            NewDTO newDTO = converter.toDTO(item);
+            results.add(newDTO);
+        }
+        return results;
+    }
+
+    @Override
+    public List<CommentDTO> findAllCommentByNewId(Long newId) {
+        List<CommentDTO> results = new ArrayList<>();
+        for(CommentEntity item:newRepository.findOne(newId).getComments()) {
+            results.add(commentConverter.toDTO(item));
+        }
+        return results;
     }
 
 

@@ -11,4 +11,5 @@ public interface IUserService {
     List<UserDTO> findAll(Pageable pageable);
     Integer totalItem();
     UserDTO findById(Long id);
+    UserDTO findbyUserName(String userName);
 }
