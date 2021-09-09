@@ -73,8 +73,8 @@
 													<c:forEach var="item" items="${model.listResult}">
 														<tr>
 															<td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
-															<td>${item.userName}</td>
-															<td>${item.fullName}</td>
+															<td><c:out value="${item.userName}"/></td>
+															<td><c:out value="${item.fullName}"/></td>
 															<c:if test="${item.status == 1}">
 																<td>Hoạt động</td>
 															</c:if>

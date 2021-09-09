@@ -1,13 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp"%>
-<c:url var="commentAPI" value="/api/comment"/>
-<c:url var="commentURL" value="/quan-tri/binh-luan/danh-sach"/>
-
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<c:url var="CommentAPI" value="/api/comment"/>
+<c:url var="CommentURL" value="/quan-tri/binh-luan/danh-sach"/>
 	<html>
-
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Danh sách comment</title>
@@ -38,18 +33,13 @@
 									<div class="table-btn-controls">
 										<div class="pull-right tableTools-container">
 											<div class="dt-buttons btn-overlap btn-group">
-												<a flag="info"
-												   class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip"
-												   title='Thêm Comment' href=''>
-															<span>
-																<i class="fa fa-plus-circle bigger-110 purple"></i>
-															</span>
-												</a>
-												<button id="btnDelete" type="button"
+
+												<button id="btnDelete" type="button" onclick="warningBeforeDelete()"
 														class="dt-button buttons-html5 btn btn-white btn-primary btn-bold" data-toggle="tooltip" title='Xóa Comment'>
 																<span>
 																	<i class="fa fa-trash-o bigger-110 pink"></i>
 																</span>
+
 												</button>
 											</div>
 										</div>
@@ -72,9 +62,9 @@
 													<c:forEach var="item" items="${model.listResult}">
 														<tr>
 															<td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
-															<td><a href="">${item.userId}</a></td>
-															<td><a href="">${item.newId}</a></td>
-															<td>${item.content}</td>
+															<td><c:out value="${item.userId}"/></td>
+															<td><c:out value="${item.newId}"/></td>
+															<td><c:out value="${item.content}"/></td>
 															<td>
 																<c:url var="editCommentURL" value="/quan-tri/binh-luan/chinh-sua">
 																	<c:param name="id" value="${item.id}"/>
@@ -134,27 +124,49 @@
 					}
 				});
 			});
-			
-			$("#btnDelete").click(function() {
-				var data = {};
-				var ids = $('tbody input[type=checkbox]:checked').map(function () {
-		            return $(this).val();
-		        }).get();
-				data['ids'] = ids;
-				deleteComment(data);
-			});
+
+			function warningBeforeDelete(){
+				const swalWithBootstrapButtons = Swal.mixin({
+					customClass: {
+						confirmButton: 'btn btn-success',
+						cancelButton: 'btn btn-danger'
+					},
+					buttonsStyling: false
+				})
+
+				swalWithBootstrapButtons.fire({
+					title: 'Xác nhận xóa?',
+					text: "Bạn có chắc muốn xóa!",
+					icon: 'warning',
+					showCancelButton: true,
+					confirmButtonText: 'Xác nhận',
+					cancelButtonText: 'Hủy bỏ',
+					reverseButtons: true
+				}).then((result) => {
+					if (result.isConfirmed) {
+						var ids = $('tbody input[type=checkbox]:checked').map(function () {
+							return $(this).val();
+						}).get();
+						deleteComment(ids);
+					} else if ( result.dismiss === Swal.DismissReason.cancel ) {
+						swalWithBootstrapButtons.fire(
+								'Hủy bỏ thành công'
+						)
+					}
+				})
+			}
 			
 			function deleteComment(data) {
 		        $.ajax({
-		            url: '${commentAPI}',
+		            url: '${CommentAPI}',
 		            type: 'DELETE',
 		            contentType: 'application/json',
 		            data: JSON.stringify(data),
 		            success: function (result) {
-		                window.location.href = "${CommentURL}?type=list&limit=5&page=1&message=delete_success&alert=success";
+		                window.location.href = "${CommentURL}?type=list&limit=5&page=1&message=delete_success";
 		            },
 		            error: function (error) {
-		            	window.location.href = "${CommentURL}?type=list&limit=5&page=1&message=error_system&alert=danger";
+		            	window.location.href = "${CommentURL}?type=list&limit=5&page=1&message=error_system";
 		            }
 		        });
 		    }

@@ -60,11 +60,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CsrfMatcher csrfRequestMatcher = new CsrfMatcher();
 
 
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/template/**");
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
+
+        http
+                .headers()
+                .cacheControl()
+                .contentTypeOptions()
+                .httpStrictTransportSecurity()
+                .frameOptions()
+                .xssProtection();
 
         http
                 .authorizeRequests()
@@ -75,6 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/comment").access("hasAnyRole('ADMIN','WRITER','USER')")
                 .antMatchers("/api/new").access("hasAnyRole('ADMIN','WRITER')")
                 .antMatchers("/bai-viet/**").access("hasAnyRole('WRITER')")
+                .antMatchers("/dang-ky","/template/**").permitAll()
                 .anyRequest()
                 .authenticated()
 
@@ -87,9 +100,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(customSuccessHandler)
                 .failureUrl("/dang-nhap?incorrectAccount")
                 .permitAll()
+
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll()
+
+                .and()
+                .sessionManagement()
+                .sessionFixation()
+                .newSession();
+
+
 
 
 

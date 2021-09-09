@@ -78,8 +78,8 @@
 													<c:forEach var="item" items="${model.listResult}">
 														<tr>
 															<td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
-															<td>${item.name}</td>
-															<td>${item.code}</td>
+															<td><c:out value="${item.name}"/></td>
+															<td><c:out value="${item.code}"/></td>
 															<td>
 
 																<c:url var="editCategoryURL" value="/quan-tri/the-loai/chinh-sua">
@@ -145,20 +145,7 @@
 
 
 			
-			<%--function deleteCategory(data) {--%>
-		    <%--    $.ajax({--%>
-		    <%--        url: '${CategoryAPI}',--%>
-		    <%--        type: 'DELETE',--%>
-		    <%--        contentType: 'application/json',--%>
-		    <%--        data: JSON.stringify(data),--%>
-		    <%--        success: function (result) {--%>
-		    <%--            window.location.href = "${CategoryURL}?limit=5&page=1&message=delete_success&${_csrf.parameterName}=${_csrf.token}";--%>
-		    <%--        },--%>
-		    <%--        error: function (error) {--%>
-		    <%--        	window.location.href = "${CategoryURL}?limit=5&page=1&message=error_system&${_csrf.parameterName}=${_csrf.token}";--%>
-		    <%--        }--%>
-		    <%--    });--%>
-		    <%--}--%>
+
 
 
 			function deleteCategory(data) {

@@ -63,7 +63,7 @@ public class NewController {
         return mav;
     }
 
-    @RequestMapping(value = "/bai-viet")
+    @RequestMapping(value = "/xem-bai-viet")
     public ModelAndView xemBaiViet(@RequestParam(value = "id",required = false) Long id,
                                    HttpServletRequest request){
         ModelAndView mav = new ModelAndView("/web/new/view");

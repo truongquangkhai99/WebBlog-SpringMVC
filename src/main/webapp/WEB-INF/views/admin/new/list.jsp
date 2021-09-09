@@ -74,8 +74,8 @@
                                         <c:forEach var="item" items="${model.listResult}">
                                             <tr>
                                                 <td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
-                                                <td>${item.title}</td>
-                                                <td>${item.shortDescription}</td>
+                                                <td><c:out value="${item.title}"/></td>
+                                                <td><c:out value="${item.shortDescription}"/></td>
                                                 <td>
                                                     <c:url var="updateNewURL" value="/quan-tri/bai-viet/chinh-sua">
                                                         <c:param name="id" value="${item.id}"/>

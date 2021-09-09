@@ -14,13 +14,13 @@
 
            <div class="row align-items-center my-5">
                <div class="col-lg-7">
-                   <img class="img-fluid rounded mb-4 mb-lg-0" src="${item.thumbnail}" alt="">
+                   <img class="img-fluid rounded mb-4 mb-lg-0" src="<c:out value="${item.thumbnail}"/>" alt="">
                </div>
                <!-- /.col-lg-8 -->
                <div class="col-lg-5">
-                   <h1 class="font-weight-light"> ${item.title} </h1>
-                   <p> ${item.shortDescription} </p>
-                   <a class="btn btn-primary" href="<c:url value="/bai-viet?id=${item.id}"/>">Xem chi tiết</a>
+                   <h1 class="font-weight-light"><c:out value="${item.title}"/></h1>
+                   <p> <c:out value="${item.shortDescription}"/> </p>
+                   <a class="btn btn-primary" href="<c:url value="/xem-bai-viet?id=${item.id}"/>">Xem chi tiết</a>
                </div>
            </div>
 

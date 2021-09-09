@@ -10,16 +10,7 @@
 <body>
 <div class="row">
 
-<%--        <div class="col-lg-3">--%>
 
-<%--          <h1 class="my-4"><a href="<c:url value='/new-edit?type=edit'/>">Tao bai viet moi</a></h1>--%>
-<%--          <div class="list-group">--%>
-<%--            <a href="<c:url value='/new-list?type=list&page=1&maxPageItem=3&sortName=title&sortBy=desc'/>" class="list-group-item">Danh sach bai viet</a>--%>
-<%--            <a href="<c:url value='/user-view?action=userInfo'/>" class="list-group-item">Thong tin tai khoan</a>--%>
-<%--            --%>
-<%--          </div>--%>
-
-<%--        </div>--%>
 
 
         <div class="col-lg-9">
@@ -51,8 +42,8 @@
                         <c:forEach var="item" items="${model.listResult}">
                             <tr>
                                 <td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
-                                <td>${item.title}</td>
-                                <td>${item.shortDescription}</td>
+                                <td><c:out value="${item.title}"/></td>
+                                <td><c:out value="${item.shortDescription}"/></td>
                                 <td>
                                     <c:url var="updateNewURL" value="/bai-viet/chinh-sua">
                                         <c:param name="id" value="${item.id}"/>

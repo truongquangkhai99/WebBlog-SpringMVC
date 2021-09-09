@@ -71,8 +71,8 @@
 													<c:forEach var="item" items="${model.listResult}">
 														<tr>
 															<td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
-															<td>${item.name}</td>
-															<td>${item.code}</td>
+															<td><c:out value="${item.name}"/></td>
+															<td><c:out value="${item.code}"/></td>
 															<td>
 																<c:url var="editRoleURL" value="/quan-tri/vai-tro/chinh-sua">
 																	<c:param name="id" value="${item.id}"/>

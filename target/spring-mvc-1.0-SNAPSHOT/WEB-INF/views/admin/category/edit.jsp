@@ -67,58 +67,6 @@
     </div>
 </div>
 
-<%--<script>--%>
 
-<%--	--%>
-<%--    $('#btnAddOrUpdateNew').click(function (e) {--%>
-<%--        e.preventDefault();--%>
-<%--        var data = {}; --%>
-<%--        var formData = $('#formSubmit').serializeArray();--%>
-<%--        $.each(formData, function (i, v) {--%>
-<%--            data[""+v.name+""] = v.value;--%>
-<%--        });--%>
-<%--        var id = $('#id').val();--%>
-<%--        if (id == "") {--%>
-<%--            addCategory(data);--%>
-<%--        } else {--%>
-<%--            updateCategory(data);--%>
-<%--        }--%>
-<%--    });--%>
-<%--    function addCategory(data) {--%>
-<%--        $.ajax({--%>
-<%--            url: '${CategoryAPI}',--%>
-<%--            type: 'POST',--%>
-<%--            beforeSend: function(request) {--%>
-<%--                request.setRequestHeader(${X-CSRF-TOKEN}, ${_csrf.token});--%>
-<%--            },--%>
-<%--            contentType: 'application/json',--%>
-<%--            data: JSON.stringify(data),--%>
-<%--            dataType: 'json',--%>
-<%--            success: function (result) {--%>
-<%--            	window.location.href = "${CategoryURL}?page=1&limit=5&message=insert_success";--%>
-<%--            },--%>
-<%--            error: function (error) {--%>
-<%--            	window.location.href = "${CategoryURL}?page=1&limit=5&page=1&message=error_system";--%>
-<%--            }--%>
-<%--        });--%>
-<%--    }--%>
-<%--    function updateCategory(data) {--%>
-<%--        $.ajax({--%>
-<%--            url: '${CategoryAPI}',--%>
-<%--            type: 'PUT',--%>
-<%--            contentType: 'application/json',--%>
-<%--            data: JSON.stringify(data),--%>
-<%--            dataType: 'json',--%>
-<%--            success: function (result) {--%>
-<%--            	window.location.href = "${CategoryURL}?page=1&limit=5&message=insert_success";--%>
-<%--            },--%>
-<%--            error: function (error) {--%>
-<%--            	window.location.href = "${CategoryURL}?page=1&limit=5&page=1&message=error_system";--%>
-<%--            }--%>
-<%--        });--%>
-<%--    }--%>
-
-<%--    --%>
-<%--</script>--%>
 </body>
 </html>

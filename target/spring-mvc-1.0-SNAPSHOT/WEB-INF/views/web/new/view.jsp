@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="CommentAPI" value="/api/comment"/>
-<c:url var="NewURL" value="/bai-viet"/>
+<c:url var="NewURL" value="/xem-bai-viet"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,18 +16,18 @@
 
         <div class="col-lg-9">
 
-          <h2 class="font-weight-bold text-uppercase">${model.title}</h2>
-            <mark>Thể loại :${category.name}</mark>
+          <h2 class="font-weight-bold text-uppercase"><c:out value="${model.title}"/></h2>
+            <mark>Thể loại :<c:out value="${category.name}"/></mark>
           <br><br><br>
 
         <blockquote class="blockquote">
-            <p>${model.shortDescription}</p>
-        <img src="${model.thumbnail}" width="660px" height="470px" class="rounded" alt="Cinque Terre"/>
+            <p><c:out value="${model.shortDescription}"/></p>
+        <img src="<c:out value="${model.thumbnail}"/>" width="660px" height="470px" class="rounded" alt="Cinque Terre"/>
         <hr>
         <p>${model.content}</p>
 
-            <footer class="blockquote-footer">Người viết : ${model.createdBy}</footer>
-            <footer class="blockquote-footer">Ngày tạo   : ${model.createdDate}</footer>
+            <footer class="blockquote-footer">Người viết : <c:out value="${model.createdBy}"/></footer>
+            <footer class="blockquote-footer">Ngày tạo   : <c:out value="${model.createdDate}"/></footer>
         </blockquote>
 
 
@@ -53,11 +53,11 @@
                     <div class="media">
                         <div class="media-body">
                             <h5 class="media-heading user_name">
-                                    Tài khoản : ${item.createdBy}
+                                    Tài khoản : <c:out value="${item.createdBy}"/>
                             </h5>
-                                ${item.content}
+                            <c:out value="${item.content}"/>
                             <p><small><a href="">Like</a> - <a href="">Share</a></small></p>
-                            <small>${item.createdDate}</small>
+                            <small><c:out value="${item.createdDate}"/></small>
                         </div>
                     </div>
                     <br><br><br>
