@@ -2,6 +2,8 @@
 <%@include file="/common/taglib.jsp"%>
 <c:url var="CategoryAPI" value="/api/category"/>
 <c:url var ="CategoryURL" value="/quan-tri/the-loai/danh-sach"/>
+<c:url var ="EditCategoryURL" value="/quan-tri/the-loai/chinh-sua"/>
+
 <html>
 <head>
     <title>Chỉnh sửa thể loại</title>
@@ -51,22 +53,79 @@
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <c:if test="${not empty model.id}">
-                                        <input type="submit" class="btn btn-white btn-warning btn-bold" value="Cập nhật"/>
+                                        <input type="button" class="btn btn-white btn-warning btn-bold" value="Cập nhật bài viết" id="btnAddOrUpdateNew"/>
                                     </c:if>
                                     <c:if test="${empty model.id}">
-                                        <input type="submit" class="btn btn-white btn-warning btn-bold" value="Thêm" />
+                                        <input type="button" class="btn btn-white btn-warning btn-bold" value="Thêm bài viết" id="btnAddOrUpdateNew"/>
                                     </c:if>
+
+                                        &nbsp; &nbsp; &nbsp;
+                                    <button class="btn" type="reset">
+                                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                                        Hủy
+                                    </button>
                                 </div>
                             </div>
                             <form:hidden id="id" path="id"/>
-                            <input type="hidden"  name="${_csrf.parameterName}"   value="${_csrf.token}"/>
+                            
                         </form:form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    var editor = '';
+    $(document).ready(function(){
+        editor = CKEDITOR.replace( 'content');
+    });
 
+    $('#btnAddOrUpdateNew').click(function (e) {
+        e.preventDefault();
+        var data = {};
+        var formData = $('#formSubmit').serializeArray();
+        $.each(formData, function (i, v) {
+            data[""+v.name+""] = v.value;
+        });
+        data["content"] = editor.getData();
+        var id = $('#id').val();
+        if (id == "") {
+            addCategory(data);
+        } else {
+            updateCategory(data);
+        }
+    });
+    function addCategory(data) {
+        $.ajax({
+            url: '${CategoryAPI}',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "${EditCategoryURL}?id="+result.id+"&message=insert_success";
+            },
+            error: function (error) {
+                window.location.href = "${EditCategoryURL}?message=error_system";
+            }
+        });
+    }
+    function updateCategory(data) {
+        $.ajax({
+            url: '${CategoryAPI}',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (result) {
+                window.location.href = "${EditCategoryURL}?id="+result.id+"&message=update_success";
+            },
+            error: function (error) {
+                window.location.href = "${EditCategoryURL}?message=error_system";
+            }
+        });
+    }
 
+</script>
 </body>
 </html>

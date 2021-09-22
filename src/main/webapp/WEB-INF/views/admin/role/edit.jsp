@@ -1,15 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="RoleAPI" value="/api/role"/>
-<c:url var ="RoleURL" value="/quan-tri/vai-tro/danh-sach"/>
+<c:url var="EditRoleURL" value="/quan-tri/vai-tro/chinh-sua"/>
+
 <html>
-
-
-
 <head>
     <title>Chỉnh sửa vai trò</title>
 </head>
 <body>
+
 <div class="main-content">
     <div class="main-content-inner">
         <div class="breadcrumbs" id="breadcrumbs">
@@ -91,10 +90,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	window.location.href = "${RoleURL}?page=1&limit=5&message=insert_success";
+            	window.location.href = "${EditRoleURL}?message=insert_success";
             },
             error: function (error) {
-            	window.location.href = "${RoleURL}?limit=5&page=1&message=error_system";
+            	window.location.href = "${EditRoleURL}?message=error_system";
             }
         });
     }
@@ -106,15 +105,13 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-            	window.location.href = "${RoleURL}?page=1&limit=5&message=update_success";
+            	window.location.href = "${EditRoleURL}?message=update_success";
             },
             error: function (error) {
-            	window.location.href = "${RoleURL}?limit=5&page=1&message=error_system";
+            	window.location.href = "${EditRoleURL}?message=error_system";
             }
         });
     }
-
-
 
 </script>
 </body>

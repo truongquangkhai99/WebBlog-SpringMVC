@@ -1,14 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: vu
-  Date: 12/12/2020
-  Time: 9:26 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="NewAPI" value="/api/new"/>
-<c:url var="NewURL" value="/quan-tri/bai-viet/danh-sach"/>
 <c:url var="EditNewURL" value="/quan-tri/bai-viet/chinh-sua"/>
 
 <html>
@@ -111,7 +104,6 @@
         </div>
     </div>
 </div>
-
 <script>
     var editor = '';
     $(document).ready(function(){
@@ -144,7 +136,7 @@
                 window.location.href = "${EditNewURL}?id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-                window.location.href = "${NewURL}?page=1&limit=2&message=error_system";
+                window.location.href = "${EditNewURL}?message=error_system";
             }
         });
     }
@@ -159,7 +151,7 @@
                 window.location.href = "${EditNewURL}?id="+result.id+"&message=update_success";
             },
             error: function (error) {
-                window.location.href = "${EditNewURL}?&message=error_system";
+                window.location.href = "${EditNewURL}?message=error_system";
             }
         });
     }

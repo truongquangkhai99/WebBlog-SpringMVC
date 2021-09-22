@@ -43,7 +43,7 @@
             <b class="arrow"></b>
             <ul class="submenu">
                 <li>
-                    <a href="<c:url value='/quan-tri/bai-viet/danh-sach?page=1&limit=6'/>">
+                    <a href="<c:url value='/quan-tri/bai-viet/danh-sach?page=1&limit=5&sortName=id&sortBy=desc'/>">
                         <i class="menu-icon fa fa-caret-right"></i>
                         DS bài viết
                     </a>
@@ -51,7 +51,7 @@
                 </li>
 
                 <li>
-                    <a href="<c:url value='/quan-tri/the-loai/danh-sach?page=1&limit=6&${_csrf.parameterName}=${_csrf.token}'/>">
+                    <a href="<c:url value='/quan-tri/the-loai/danh-sach?page=1&limit=5&sortName=id&sortBy=desc&${_csrf.parameterName}=${_csrf.token}'/>">
                         <i class="menu-icon fa fa-caret-right"></i>
                         DS thể loại
                     </a>
@@ -59,7 +59,7 @@
                 </li>
 
                 <li>
-                    <a href="<c:url value='/quan-tri/nguoi-dung/danh-sach?page=1&limit=6'/>">
+                    <a href="<c:url value='/quan-tri/nguoi-dung/danh-sach?page=1&limit=5&sortName=id&sortBy=desc'/>">
                         <i class="menu-icon fa fa-caret-right"></i>
                         DS người dùng
                     </a>
@@ -67,7 +67,7 @@
                 </li>
 
                 <li>
-                    <a href="<c:url value='/quan-tri/binh-luan/danh-sach?page=1&limit=6'/>">
+                    <a href="<c:url value='/quan-tri/binh-luan/danh-sach?page=1&limit=5&sortName=id&sortBy=desc'/>">
                         <i class="menu-icon fa fa-caret-right"></i>
                         DS bình luận
                     </a>
@@ -75,7 +75,7 @@
                 </li>
 
                 <li>
-                    <a href="<c:url value='/quan-tri/vai-tro/danh-sach?page=1&limit=6'/>">
+                    <a href="<c:url value='/quan-tri/vai-tro/danh-sach?page=1&limit=5&sortName=id&sortBy=desc'/>">
                         <i class="menu-icon fa fa-caret-right"></i>
                         DS Roles
                     </a>

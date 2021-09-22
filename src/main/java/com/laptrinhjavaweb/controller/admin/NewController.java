@@ -7,6 +7,7 @@ import com.laptrinhjavaweb.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +31,8 @@ public class NewController {
     @RequestMapping(value = "quan-tri/bai-viet/danh-sach")
     public ModelAndView showList(@RequestParam(value = "page",required = false) Integer page,
                                  @RequestParam(value = "limit",required = false) Integer limit,
+                                 @RequestParam(value = "sortBy",required = false) String sortBy,
+                                 @RequestParam(value = "sortName",required = false) String sortName,
                                  HttpServletRequest request){
         ModelAndView mav = new ModelAndView("/admin/new/list");
         NewDTO model = new NewDTO();
@@ -37,7 +40,13 @@ public class NewController {
             model.setPage(page);
             model.setLimit(limit);
             model.setTotalPage((int) Math.ceil((double) (newService.totalItem() / 2)));
-            Pageable pageable = new PageRequest(page - 1, limit);
+            
+            Pageable pageable = null;
+            if(sortBy.equalsIgnoreCase("desc"))
+            	pageable = new PageRequest(page - 1, limit,Sort.Direction.DESC,sortName);
+            else if(sortBy.equalsIgnoreCase("asc"))
+            	pageable = new PageRequest(page - 1, limit,Sort.Direction.ASC,sortName);
+            
             model.setListResult(newService.findAll(pageable));
         }
         if(request.getParameter("message") != null){

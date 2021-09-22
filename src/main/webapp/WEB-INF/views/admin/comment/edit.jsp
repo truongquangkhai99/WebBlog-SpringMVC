@@ -1,14 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: trant
-  Date: 8/17/2021
-  Time: 11:24 AM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="CommentAPI" value="/api/comment"/>
-<c:url var ="CommentURL" value="/quan-tri/binh-luan/danh-sach"/>
+<c:url var ="EditCommentURL" value="/quan-tri/binh-luan/chinh-sua"/>
+
 <html>
 <head>
     <title>Chỉnh sửa bình luận</title>
@@ -125,26 +120,14 @@
         data["content"] = editor.getData();
         var id = $('#id').val();
         if (id == "") {
-            addComment(data);
+           
         } else {
             updateComment(data);
         }
     });
-    function addComment(data) {
-        $.ajax({
-            url: '${CommentAPI}',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(data),
-            dataType: 'json',
-            success: function (result) {
-                window.location.href = "${CommentURL}?page=1&limit=5&message=insert_success";
-            },
-            error: function (error) {
-                window.location.href = "${CommentURL}?page=1&limit=5&page=1&message=error_system";
-            }
-        });
-    }
+
+   
+
     function updateComment(data) {
         $.ajax({
             url: '${CommentAPI}',
@@ -153,10 +136,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-                window.location.href = "${CommentURL}?page=1&limit=5&message=insert_success";
+                window.location.href = "${EditCommentURL}?message=insert_success";
             },
             error: function (error) {
-                window.location.href = "${CommentURL}?page=1&limit=5&page=1&message=error_system";
+                window.location.href = "${EditCommentURL}?message=error_system";
             }
         });
     }

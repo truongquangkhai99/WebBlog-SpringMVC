@@ -3,9 +3,14 @@ package com.laptrinhjavaweb.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -52,6 +57,11 @@ public class JPAConfig {
         dataSource.setUrl("jdbc:mysql://localhost:3306/springmvc?useSSL=false");
         dataSource.setUsername("root");
         dataSource.setPassword("123456");
+        
+//        Resource initData = new ClassPathResource("data.sql");
+//        DatabasePopulator databasePopulator = new ResourceDatabasePopulator(initData);
+//        DatabasePopulatorUtils.execute(databasePopulator, dataSource);
+        
         return dataSource;
     }
 
@@ -63,6 +73,7 @@ public class JPAConfig {
 //      properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.hbm2ddl.auto", "none");
         properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
+        
         return properties;
     }
 

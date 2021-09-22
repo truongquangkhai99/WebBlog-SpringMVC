@@ -1,8 +1,8 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="UserAPI" value="/api/user"/>
-<c:url var ="UserURL" value="/quan-tri/nguoi-dung/chinh-sua"/>
+<c:url var ="EditNewURL" value="/quan-tri/nguoi-dung/chinh-sua"/>
 
 
 <html>
@@ -144,10 +144,10 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-                window.location.href = "${UserURL}?id="+result.id+"&message=insert_success";
+                window.location.href = "${EditNewURL}?id="+result.id+"&message=insert_success";
             },
             error: function (error) {
-                window.location.href = "${UserURL}?page=1&limit=2&message=error_system";
+                window.location.href = "${EditNewURL}?message=error_system";
             }
         });
     }
@@ -162,7 +162,7 @@
                 window.location.href = "${UserURL}?id="+result.id+"&message=update_success";
             },
             error: function (error) {
-                window.location.href = "${UserURL}?&message=error_system";
+                window.location.href = "${UserURL}?message=error_system";
             }
         });
     }

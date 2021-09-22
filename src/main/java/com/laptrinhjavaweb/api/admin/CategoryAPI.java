@@ -1,13 +1,14 @@
 package com.laptrinhjavaweb.api.admin;
 
-import com.laptrinhjavaweb.converter.CategoryConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.laptrinhjavaweb.dto.CategoryDTO;
 import com.laptrinhjavaweb.service.ICategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController(value = "categoryAPIOfAdmin")
 public class CategoryAPI {
@@ -15,8 +16,7 @@ public class CategoryAPI {
     @Autowired
     private ICategoryService categoryService;
 
-    @Autowired
-    private CategoryConverter converter;
+    
 
     @PostMapping("/api/category")
     public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO){
@@ -34,9 +34,5 @@ public class CategoryAPI {
         categoryService.delete(ids);
     }
 
-    @GetMapping("/api/category")
-    public List<CategoryDTO> getCategory(){
-
-        return categoryService.findAll(new PageRequest(0,5));
-    }
+    
 }

@@ -1,15 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: vu
-  Date: 12/12/2020
-  Time: 1:25 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="NewAPI" value="/api/new"/>
 <c:url var ="NewURL" value="/quan-tri/bai-viet/danh-sach"/>
-<c:url var="createNewURL" value="/quan-tri/bai-viet/chinh-sua"/>
+<c:url var="CreateNewURL" value="/quan-tri/bai-viet/chinh-sua"/>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Danh sách bài viết</title>
@@ -17,6 +10,9 @@
 
 <body>
 <div class="main-content">
+
+
+
     <form action="<c:url value='/quan-tri/bai-viet/danh-sach'/>" id="formSubmit" method="get">
         <div class="main-content-inner">
             <div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -29,6 +25,29 @@
                 <!-- /.breadcrumb -->
             </div>
             <div class="page-content">
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Search for...">
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Search</button>
+                          </span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <select>
+                             <option selected>Open this select menu</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
                 <div class="row">
                     <div class="col-xs-12">
                         <c:if test="${not empty message}">
@@ -36,13 +55,15 @@
                                 <c:out value='${message}'/>
                             </div>
                         </c:if>
+
+
                         <div class="widget-box table-filter">
                             <div class="table-btn-controls">
                                 <div class="pull-right tableTools-container">
                                     <div class="dt-buttons btn-overlap btn-group">
                                         <a flag="info"
                                            class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip"
-                                           title='Thêm bài viết' href='${createNewURL}'>
+                                           title='Thêm bài viết' href='${CreateNewURL}'>
 															<span>
 																<i class="fa fa-plus-circle bigger-110 purple"></i>
 															</span>
@@ -57,13 +78,16 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-xs-12">
+
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <thead>
                                         <tr>
                                             <th><input type="checkbox" id="checkAll"></th>
+                                           
                                             <th>Tên bài viết</th>
                                             <th>Mô tả ngắn</th>
                                             <th>Thao tác</th>
@@ -74,6 +98,7 @@
                                         <c:forEach var="item" items="${model.listResult}">
                                             <tr>
                                                 <td><input type="checkbox" id="checkbox_${item.id}" value="${item.id}"></td>
+                                                
                                                 <td><c:out value="${item.title}"/></td>
                                                 <td><c:out value="${item.shortDescription}"/></td>
                                                 <td>
@@ -98,6 +123,8 @@
                                     <input type="hidden" value="" id="sortName" name="sortName"/>
                                     <input type="hidden" value="" id="sortBy" name="sortBy"/>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -129,7 +156,7 @@
                 if (currentPage != page) {
                     $('#limit').val(limit);
                     $('#page').val(page);
-                    $('#sortName').val('title');
+                    $('#sortName').val('id');
                     $('#sortBy').val('desc');
                     $('#formSubmit').submit();
                 }
@@ -148,10 +175,10 @@
             contentType: 'application/json',
             data: JSON.stringify(data),
             success: function (result) {
-                window.location.href = "${NewURL}?limit=5&page=1&message=delete_success";
+                window.location.href = "${NewURL}?page=1&limit=5&sortBy=desc&sortName=id&message=delete_success";
             },
             error: function (error) {
-                window.location.href = "${NewURL}?limit=5&page=1&message=error_system";
+                window.location.href = "${NewURL}?page=1&limit=5&sortBy=desc&sortName=id&message=error_system";
             }
         });
     }
