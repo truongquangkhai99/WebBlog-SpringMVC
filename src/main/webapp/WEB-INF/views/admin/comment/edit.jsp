@@ -1,5 +1,5 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="CommentAPI" value="/api/comment"/>
 <c:url var ="EditCommentURL" value="/quan-tri/binh-luan/chinh-sua"/>
@@ -136,7 +136,7 @@
             data: JSON.stringify(data),
             dataType: 'json',
             success: function (result) {
-                window.location.href = "${EditCommentURL}?message=insert_success";
+                window.location.href = "${EditCommentURL}?message=update_success";
             },
             error: function (error) {
                 window.location.href = "${EditCommentURL}?message=error_system";

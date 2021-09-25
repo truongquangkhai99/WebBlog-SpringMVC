@@ -34,6 +34,24 @@ public class MessageUtil {
             result.put("message","Tên tài khoản đã tồn tại");
             result.put("alert","danger");
         }
+        
+        else if(message.equals("change_password_success")){
+            result.put("message","Đổi mật khẩu thành công");
+            result.put("alert","success");
+        }
+        else if(message.equals("wrong_password")){
+            result.put("message","Sai mật khẩu hiện tại");
+            result.put("alert","danger");
+        }
+        else if(message.equals("2password_not_equal")){
+            result.put("message","Xác nhận mật khẩu không khớp nhau");
+            result.put("alert","danger");
+        }
+        
+        
+        
+        
+        
 
         return result;
     }

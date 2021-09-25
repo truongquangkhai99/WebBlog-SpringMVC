@@ -1,7 +1,5 @@
 package com.laptrinhjavaweb.config;
 
-import com.laptrinhjavaweb.security.CustomSuccessHandler;
-import com.laptrinhjavaweb.service.impl.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +9,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import javax.servlet.http.HttpServletRequest;
+import com.laptrinhjavaweb.security.CustomSuccessHandler;
+import com.laptrinhjavaweb.service.impl.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -47,17 +45,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    class CsrfMatcher implements RequestMatcher {
-        @Override
-        public boolean matches(HttpServletRequest request) {
-
-           if (request.getRequestURL().toString().indexOf("/the-loai") != -1)
-                return true;
-            return false;
-        }
-    }
-
-    private CsrfMatcher csrfRequestMatcher = new CsrfMatcher();
+//    class CsrfMatcher implements RequestMatcher {
+//        @Override
+//        public boolean matches(HttpServletRequest request) {
+//
+//           if (request.getRequestURL().toString().indexOf("/the-loai") != -1)
+//                return true;
+//            return false;
+//        }
+//    }
+//
+//    private CsrfMatcher csrfRequestMatcher = new CsrfMatcher();
 
 
 //    @Override
@@ -68,15 +66,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
+//        http.csrf().requireCsrfProtectionMatcher(csrfRequestMatcher);
 
         http
-                .headers()
-                .cacheControl()
-                .contentTypeOptions()
-                .httpStrictTransportSecurity()
-                .frameOptions()
-                .xssProtection();
+                .headers().disable().csrf().disable();
+//                .cacheControl()
+//                .contentTypeOptions()
+//                .httpStrictTransportSecurity()
+//                .frameOptions()
+//                .xssProtection();
 
         http
                 .authorizeRequests()
@@ -88,6 +86,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/new").access("hasAnyRole('ADMIN','WRITER')")
                 .antMatchers("/bai-viet/**").access("hasAnyRole('WRITER')")
                 .antMatchers("/dang-ky","/template/**").permitAll()
+                .antMatchers("/trang-chu").permitAll()
+                .antMatchers("/xem-bai-viet").permitAll()
                 .anyRequest()
                 .authenticated()
 

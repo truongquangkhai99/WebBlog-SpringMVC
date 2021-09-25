@@ -33,6 +33,8 @@ public class UserController {
                                  @RequestParam(value = "limit") Integer limit,
                                  @RequestParam(value = "sortBy",required = false) String sortBy,
                                  @RequestParam(value = "sortName",required = false) String sortName,
+                                 @RequestParam(value = "searchKey",required = false) String searchKey,
+                                 @RequestParam(value = "searchName",required = false) String searchName,
                                  HttpServletRequest request){
         ModelAndView mav = new ModelAndView("/admin/user/list");
         UserDTO model = new UserDTO();
@@ -45,7 +47,13 @@ public class UserController {
             	pageable = new PageRequest(page - 1, limit,Sort.Direction.DESC,sortName);
             else if(sortBy.equalsIgnoreCase("asc"))
             	pageable = new PageRequest(page - 1, limit,Sort.Direction.ASC,sortName);
-            model.setListResult(userService.findAll(pageable));
+            
+            if(searchKey != null && searchName != null) {
+            	model.setSearchKey(searchKey);
+                model.setSearchName(searchName);
+                model.setListResult(userService.searchUser(searchKey,searchName,pageable));
+           } 
+           else model.setListResult(userService.findAll(pageable));
         }
 
         if(request.getParameter("message") != null){

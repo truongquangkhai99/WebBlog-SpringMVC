@@ -2,12 +2,14 @@ package com.laptrinhjavaweb.controller.web;
 
 import com.laptrinhjavaweb.dto.NewDTO;
 import com.laptrinhjavaweb.dto.UserDTO;
+import com.laptrinhjavaweb.service.ICategoryService;
 import com.laptrinhjavaweb.service.INewService;
 import com.laptrinhjavaweb.service.IUserService;
 import com.laptrinhjavaweb.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -33,12 +35,17 @@ public class HomeController {
 
     @Autowired
     private INewService newService;
+    
+    @Autowired
+    private ICategoryService categoryService;
 
     @RequestMapping(value = "/trang-chu",method = RequestMethod.GET)
     public ModelAndView homePage(@RequestParam(value = "page",required = false) Integer page,
                                  @RequestParam(value = "limit",required = false) Integer limit,
                                  @RequestParam(value = "sortName",required = false) String sortName,
-                                 @RequestParam(value = "sortBy",required = false) String sortBy){
+                                 @RequestParam(value = "sortBy",required = false) String sortBy,
+                                 @RequestParam(value = "searchKey",required = false) String searchKey,
+                                 @RequestParam(value = "searchName",required = false) String searchName){
 
         ModelAndView mav = new ModelAndView("web/home");
         NewDTO model = new NewDTO();
@@ -46,9 +53,19 @@ public class HomeController {
             model.setPage(page);
             model.setLimit(limit);
             model.setTotalPage((int) Math.ceil((double) (newService.totalItem() / 2)));
-            Pageable pageable = new PageRequest(page - 1, limit);
-            model.setListResult(newService.findAll(pageable));
+            Pageable pageable = null;
+            if(sortBy.equalsIgnoreCase("desc"))
+            	pageable = new PageRequest(page - 1, limit,Sort.Direction.DESC,sortName);
+            else if(sortBy.equalsIgnoreCase("asc"))
+            	pageable = new PageRequest(page - 1, limit,Sort.Direction.ASC,sortName);
+            if(searchKey != null && searchName != null) {
+            	model.setSearchKey(searchKey);
+                model.setSearchName(searchName);
+                model.setListResult(newService.searchNew(searchKey,searchName,pageable));
+           }
+            else model.setListResult(newService.findAll(pageable));
         }
+        mav.addObject("categories",categoryService.findAll(null));
         mav.addObject("model",model);
         return mav;
     }
@@ -92,7 +109,7 @@ public class HomeController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return new ModelAndView("redirect:/trang-chu");
+        return new ModelAndView("redirect:/dang-nhap");
     }
 
     @RequestMapping(value = "/accessDenied",method = RequestMethod.GET)

@@ -1,5 +1,13 @@
 package com.laptrinhjavaweb.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.laptrinhjavaweb.converter.UserConverter;
 import com.laptrinhjavaweb.dto.UserDTO;
 import com.laptrinhjavaweb.entity.CommentEntity;
@@ -8,13 +16,7 @@ import com.laptrinhjavaweb.repository.UserRepository;
 import com.laptrinhjavaweb.service.ICommentService;
 import com.laptrinhjavaweb.service.INewService;
 import com.laptrinhjavaweb.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.laptrinhjavaweb.util.SecurityUtils;
 
 @Service(value = "userService")
 public class UserService implements IUserService {
@@ -90,6 +92,34 @@ public class UserService implements IUserService {
         if(entity == null) return null;
         else return converter.toDTO(entity);
     }
+
+
+	@Override
+	public List<UserDTO> searchUser(String searchKey, String searchName, Pageable pageable) {
+		List<UserEntity> entities = new ArrayList<UserEntity>();
+        List<UserDTO> results = new ArrayList<>();
+        
+        if(searchKey.equalsIgnoreCase("userName"))
+        	entities = userRepository.searchUser(searchName,null,pageable).getContent();
+        if(searchKey.equalsIgnoreCase("fullName"))
+        	entities = userRepository.searchUser(null,searchName,pageable).getContent();
+       
+        
+        for(UserEntity item:entities){
+            results.add(converter.toDTO(item));
+        }
+        return results;
+	}
+
+
+	@Override
+	public Boolean changePassword(String newPassword) {
+		UserEntity userEntity = userRepository.findOne(SecurityUtils.getPrincipal().getId());
+		userEntity.setPassword(bCryptPasswordEncoder.encode(newPassword));
+		if(userRepository.save(userEntity) != null)
+			return true;
+		return false;
+	}
 
 
 }

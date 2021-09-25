@@ -1,5 +1,5 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="NewAPI" value="/api/new"/>
 <c:url var="EditNewURL" value="/quan-tri/bai-viet/chinh-sua"/>

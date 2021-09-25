@@ -73,29 +73,5 @@ public class CategoryController {
         return mav;
     }
 
-
-    @RequestMapping(value = "quan-tri/the-loai/chinh-sua",method = RequestMethod.POST)
-    public String saveCategory(@ModelAttribute("model") CategoryDTO model,HttpServletRequest request){
-        String message = "";
-        if(model.getId() != null){
-            message = "update_success";
-
-        }
-        else{
-            message = "insert_success";
-        }
-        model = categoryService.save(model);
-        CsrfToken token = new HttpSessionCsrfTokenRepository().loadToken(request);
-        return "redirect:/quan-tri/the-loai/chinh-sua?id="+model.getId()+"&message="+message+"&"+token.getParameterName()+"="+token.getToken();
-    }
-
-    @RequestMapping(value = "quan-tri/the-loai/delete",method = RequestMethod.GET)
-    public String deleteCategory(@RequestParam("ids") Long[] ids,
-                                 HttpServletRequest request){
-        categoryService.delete(ids);
-        CsrfToken token = new HttpSessionCsrfTokenRepository().loadToken(request);
-        return "redirect:/quan-tri/the-loai/danh-sach?&message=delete_success&page=1&limit=5&"+token.getParameterName()+"="+token.getToken();
-    }
-
 }
 

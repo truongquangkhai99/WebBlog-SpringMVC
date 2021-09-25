@@ -1,10 +1,10 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="CategoryAPI" value="/api/category"/>
 <c:url var ="CategoryURL" value="/quan-tri/the-loai/danh-sach"/>
-<c:url var ="createCategoryURL" value="/quan-tri/the-loai/chinh-sua"/>
+<c:url var ="CreateCategoryURL" value="/quan-tri/the-loai/chinh-sua"/>
+
 
 
 
@@ -43,7 +43,7 @@
 										<div class="dt-buttons btn-overlap btn-group">
 											<a flag="info"
 												class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip"
-												title='Thêm Category' href='${createCategoryURL}'>
+												title='Thêm Category' href='${CreateCategoryURL}'>
 														<span>
 															<i class="fa fa-plus-circle bigger-110 purple"></i>
 														</span>
@@ -132,7 +132,7 @@
 					if (currentPage != page) {
 						$('#limit').val(limit);
 						$('#page').val(page);
-						$('#sortName').val('name');
+						$('#sortName').val('id');
 						$('#sortBy').val('desc');
 						$('#formSubmit').submit();
 					}

@@ -3,7 +3,7 @@
 <%@include file="/common/taglib.jsp"%>
 <c:url var="UserAPI" value="/api/user"/>
 <c:url var ="UserURL" value="/quan-tri/nguoi-dung/danh-sach"/>
-<c:url var="createUserURL" value="/quan-tri/nguoi-dung/chinh-sua"/>
+<c:url var="CreateUserURL" value="/quan-tri/nguoi-dung/chinh-sua"/>
 
 <html>
 
@@ -14,7 +14,7 @@
 
 <body>
 	<div class="main-content">
-	<form id="formSubmit">
+	<form action="${UserURL}" id="formSubmit" method="get">
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state" id="breadcrumbs">
 					<ul class="breadcrumb">
@@ -25,7 +25,12 @@
 					</ul>
 					<!-- /.breadcrumb -->
 				</div>
+
+
 				<div class="page-content">
+
+
+
 					<div class="row">
 						<div class="col-xs-12">
 							<c:if test="${not empty message}">
@@ -39,7 +44,7 @@
 										<div class="dt-buttons btn-overlap btn-group">
 											<a flag="info"
 												class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip"
-												title='Thêm user' href='${createUserURL}'>
+												title='Thêm user' href='${CreateUserURL}'>
 														<span>
 															<i class="fa fa-plus-circle bigger-110 purple"></i>
 														</span>
@@ -94,15 +99,37 @@
 											</tbody>
 										</table>
 										<ul class="pagination" id="pagination"></ul>
-										<input type="hidden" value="" id="page" name="page"/>
-										<input type="hidden" value="" id="limit" name="limit"/>
-										<input type="hidden" value="" id="sortName" name="sortName"/>
-										<input type="hidden" value="" id="sortBy" name="sortBy"/>
+										<input type="hidden" value="1" id="page" name="page"/>
+	                                    <input type="hidden" value="5" id="limit" name="limit"/>
+	                                    <input type="hidden" value="id" id="sortName" name="sortName"/>
+	                                    <input type="hidden" value="desc" id="sortBy" name="sortBy"/>
 									</div>
 								</div>
 							</div>
 						</div>
+
 					</div>
+
+					<div class="row">
+                    <div class="col-lg-3">
+                    	<div class="form-group">
+						  <label for="sel1">Tìm kiếm theo:</label>
+						  <select class="form-control" id="searchKey" name="searchKey">
+						    <option value="userName">Username</option>
+						    <option value="fullName">Fullname</option>						 				 	
+						  </select>
+						</div>
+						
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Nhập vào để tìm kiếm" id="searchName" name="searchName" />
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Search</button>
+                          </span>
+                        </div>
+                    </div>
+
+                </div>
+
 				</div>
 			</div>
 	</form>
@@ -130,8 +157,10 @@
 					if (currentPage != page) {
 						$('#limit').val(limit);
 						$('#page').val(page);
-						$('#sortName').val('username');
+						$('#sortName').val('id');
 						$('#sortBy').val('desc');
+						$('#searchKey').val('${model.searchKey}');
+                    	$('#searchName').val('${model.searchName}');
 						$('#formSubmit').submit();
 					}
 				}

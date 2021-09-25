@@ -51,7 +51,7 @@
                 </li>
 
                 <li>
-                    <a href="<c:url value='/quan-tri/the-loai/danh-sach?page=1&limit=5&sortName=id&sortBy=desc&${_csrf.parameterName}=${_csrf.token}'/>">
+                    <a href="<c:url value='/quan-tri/the-loai/danh-sach?page=1&limit=5&sortName=id&sortBy=desc'/>">
                         <i class="menu-icon fa fa-caret-right"></i>
                         DS thể loại
                     </a>

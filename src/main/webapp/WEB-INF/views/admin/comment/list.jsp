@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="CommentAPI" value="/api/comment"/>
 <c:url var="CommentURL" value="/quan-tri/binh-luan/danh-sach"/>

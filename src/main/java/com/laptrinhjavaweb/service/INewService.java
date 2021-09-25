@@ -14,10 +14,12 @@ public interface INewService {
     NewDTO save(NewDTO dto);
     void delete(Long[] ids);
     NewDTO findById(Long id);
-    List<NewEntity> findByCreatedBy(String userName);
+    List<NewEntity> findByCreatedBy(String createdBy);
 
 
     List<NewDTO> findAllByCreatedBy(String createdBy,Pageable pageable);
 
     List<CommentDTO> findAllCommentByNewId(Long newId);
+	List<NewDTO> searchNew(String searchKey, String searchName, Pageable pageable);
+	List<NewDTO> searchNewByCreatedBy(String searchKey, String searchName, String createdBy, Pageable pageable);
 }

@@ -60,7 +60,7 @@ public class CommentController {
     }
 
     @RequestMapping(value = "quan-tri/binh-luan/chinh-sua")
-    public ModelAndView editCategory(@RequestParam(value = "id",required = false) Long id,
+    public ModelAndView editComment(@RequestParam(value = "id",required = false) Long id,
                                      HttpServletRequest request){
 
         ModelAndView mav = new ModelAndView("/admin/comment/edit");

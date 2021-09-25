@@ -3,7 +3,7 @@
 <%@include file="/common/taglib.jsp"%>
 <c:url var="RoleAPI" value="/api/role"/>
 <c:url var ="RoleURL" value="/quan-tri/vai-tro/danh-sach"/>
-<c:url var ="createRoleURL" value="/quan-tri/vai-tro/chinh-sua"/>
+<c:url var ="CreateRoleURL" value="/quan-tri/vai-tro/chinh-sua"/>
 
 	
 <html>
@@ -39,7 +39,7 @@
 										<div class="dt-buttons btn-overlap btn-group">
 											<a flag="info"
 												class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip"
-												title='Thêm Role' href='${createRoleURL}'>
+												title='Thêm Role' href='${CreateRoleURL}'>
 														<span>
 															<i class="fa fa-plus-circle bigger-110 purple"></i>
 														</span>

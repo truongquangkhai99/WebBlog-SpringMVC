@@ -1,5 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@include file="/common/taglib.jsp"%>
 <html>
 <head>
     <title>Trang chủ</title>
@@ -28,20 +29,39 @@
        <!-- /.row -->
 
        <ul class="pagination" id="pagination"  ></ul>
-       <input type="hidden" value="" name="limit" id = "limit"/>
-       <input type="hidden" value="" name="page" id = "page"/>
-       <input type="hidden" value="" name="sortName" id = "sortName"/>
-       <input type="hidden" value="" name="sortBy" id = "sortBy"/>
+       <input type="hidden" value="5" name="limit" id = "limit"/>
+       <input type="hidden" value="1" name="page" id = "page"/>
+       <input type="hidden" value="id" name="sortName" id = "sortName"/>
+       <input type="hidden" value="desc" name="sortBy" id = "sortBy"/>
+       <input type="hidden" value="title" name="searchKey" id = "searchKey"/>
 
-   </form>
+   
 
 
 
 
     <!-- Call to Action Well -->
     <div class="card text-white bg-secondary my-5 py-4 text-center">
+	    <div class="form-group">
+	    	<input type="text" class="form-control"  name="searchName" placeholder="Tìm kiếm theo tiêu đề bài viết">
+	 	</div>
+	    <button type="submit" class="btn btn-warning">Tìm Kiếm</button>
+    
+      
         <div class="card-body">
-            <p class="text-white m-0">This call to action card is a great place to showcase some important information or display a clever tagline!</p>
+          <c:forEach items="${categories}" var="item">
+            <a href="
+              <c:url value="/trang-chu">
+                <c:param name="searchKey" value="categoryCode" />
+                <c:param name="searchName" value="${item.code}" />
+                <c:param name="page" value="1" /> 
+                <c:param name="limit" value="5" /> 
+                <c:param name="sortName" value="id" /> 
+                <c:param name="sortBy" value="desc" /> 
+              </c:url>" 
+              class="btn btn-outline-light">${item.name}
+            </a>
+          </c:forEach>
         </div>
     </div>
 
@@ -49,7 +69,7 @@
 
 
 
-
+</form>
 <script>
 
     var totalPages = ${model.totalPage};
@@ -64,8 +84,10 @@
                 if (currentPage != page) {
                     $('#limit').val(limit);
                     $('#page').val(page);
-                    $('#sortName').val('name');
+                    $('#sortName').val('id');
                     $('#sortBy').val('desc');
+                    $('#searchKey').val('${model.searchKey}');
+                    $('#searchName').val('${model.searchName}');
                     $('#formSubmit').submit();
                 }
             }

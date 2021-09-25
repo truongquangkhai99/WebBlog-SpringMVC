@@ -12,4 +12,6 @@ public interface IUserService {
     Integer totalItem();
     UserDTO findById(Long id);
     UserDTO findbyUserName(String userName);
+	List<UserDTO> searchUser(String searchKey, String searchName, Pageable pageable);
+	Boolean changePassword(String newPassword);
 }

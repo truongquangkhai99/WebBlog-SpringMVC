@@ -81,8 +81,8 @@ public class NewService implements INewService {
     }
 
     @Override
-    public List<NewEntity> findByCreatedBy(String userName) {
-        return newRepository.findOneByCreatedBy(userName);
+    public List<NewEntity> findByCreatedBy(String createdBy) {
+        return newRepository.findOneByCreatedBy(createdBy);
     }
 
     @Override
@@ -104,6 +104,35 @@ public class NewService implements INewService {
         }
         return results;
     }
+
+	@Override
+	public List<NewDTO> searchNew(String searchKey, String searchName, Pageable pageable) {
+		List<NewDTO> results = new ArrayList<>();
+		List<NewEntity> entities = new ArrayList<NewEntity>();
+		if(searchKey.equalsIgnoreCase("title"))
+			entities = newRepository.searchNew(searchName,null,pageable).getContent();
+		if(searchKey.equalsIgnoreCase("categoryCode"))
+			entities = newRepository.searchNew(null,searchName,pageable).getContent();
+		for(NewEntity item:entities) {
+		    NewDTO newDTO = converter.toDTO(item);
+		    results.add(newDTO);
+		}
+		return results;
+	}
+
+	@Override
+	public List<NewDTO> searchNewByCreatedBy(String searchKey, String searchName, String createdBy, Pageable pageable) {
+		List<NewDTO> results = new ArrayList<>();
+        List<NewEntity> entities = new ArrayList<NewEntity>();
+        if(searchKey.equalsIgnoreCase("title"))
+        	 entities = newRepository.searchNewByCreatedBy(searchName,createdBy,pageable).getContent();
+        
+        for(NewEntity item:entities) {
+            NewDTO newDTO = converter.toDTO(item);
+            results.add(newDTO);
+        }
+        return results;
+	}
 
 
 }

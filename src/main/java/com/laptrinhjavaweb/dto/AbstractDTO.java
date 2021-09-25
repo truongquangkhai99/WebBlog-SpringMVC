@@ -20,6 +20,12 @@ public class AbstractDTO<T> {
     private int limit;
 
     private int totalPage;
+    
+    private String searchKey;
+    
+    private String searchName;
+    
+    
 
     public int getTotalPage() {
         return totalPage;
@@ -95,4 +101,20 @@ public class AbstractDTO<T> {
     public void setListResult(List<T> listResult) {
         this.listResult = listResult;
     }
+
+	public String getSearchKey() {
+		return searchKey;
+	}
+
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+
+	public String getSearchName() {
+		return searchName;
+	}
+
+	public void setSearchName(String searchName) {
+		this.searchName = searchName;
+	}
 }

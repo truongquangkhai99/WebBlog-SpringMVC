@@ -1,8 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="CategoryAPI" value="/api/category"/>
 <c:url var ="CategoryURL" value="/quan-tri/the-loai/danh-sach"/>
 <c:url var ="EditCategoryURL" value="/quan-tri/the-loai/chinh-sua"/>
+
 
 <html>
 <head>
@@ -26,13 +28,16 @@
         <div class="page-content">
             <div class="row">
                 <div class="col-xs-12">
+
                             <c:if test="${not empty message}">
                                 <div class="alert alert-<c:out value='${alert}'/>">
                                     <c:out value='${message}'/>
                                 </div>
                             </c:if>
-                        <c:url value = "/quan-tri/the-loai/chinh-sua" var="CategoryPostURL"/>
-                        <form:form action="${CategoryPostURL}" method="post" modelAttribute="model">
+
+                       
+
+                        <form:form action="${EditCategoryURL}" id="formSubmit" method="post" modelAttribute="model">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right">Name</label>
                                 <div class="col-sm-9">  
@@ -53,10 +58,12 @@
                             <div class="form-group">
                                 <div class="col-sm-12">
                                     <c:if test="${not empty model.id}">
-                                        <input type="button" class="btn btn-white btn-warning btn-bold" value="Cập nhật bài viết" id="btnAddOrUpdateNew"/>
+                                        <input type="button" class="btn btn-white btn-warning btn-bold" value="Cập nhật thể loại" 
+                                        id="btnAddOrUpdateNew"/>
                                     </c:if>
                                     <c:if test="${empty model.id}">
-                                        <input type="button" class="btn btn-white btn-warning btn-bold" value="Thêm bài viết" id="btnAddOrUpdateNew"/>
+                                        <input type="button" class="btn btn-white btn-warning btn-bold" value="Thêm thể loại" 
+                                        id="btnAddOrUpdateNew"/>
                                     </c:if>
 
                                         &nbsp; &nbsp; &nbsp;
@@ -75,19 +82,14 @@
     </div>
 </div>
 <script>
-    var editor = '';
-    $(document).ready(function(){
-        editor = CKEDITOR.replace( 'content');
-    });
 
-    $('#btnAddOrUpdateNew').click(function (e) {
+     $('#btnAddOrUpdateNew').click(function (e) {
         e.preventDefault();
         var data = {};
         var formData = $('#formSubmit').serializeArray();
         $.each(formData, function (i, v) {
             data[""+v.name+""] = v.value;
         });
-        data["content"] = editor.getData();
         var id = $('#id').val();
         if (id == "") {
             addCategory(data);
@@ -95,6 +97,8 @@
             updateCategory(data);
         }
     });
+
+
     function addCategory(data) {
         $.ajax({
             url: '${CategoryAPI}',
@@ -110,6 +114,8 @@
             }
         });
     }
+
+
     function updateCategory(data) {
         $.ajax({
             url: '${CategoryAPI}',

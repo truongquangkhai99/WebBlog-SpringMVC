@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>
 <c:url var="NewAPI" value="/api/new"/>
 <c:url var ="NewURL" value="/quan-tri/bai-viet/danh-sach"/>
@@ -25,27 +26,6 @@
                 <!-- /.breadcrumb -->
             </div>
             <div class="page-content">
-
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="input-group">
-                          <input type="text" class="form-control" placeholder="Search for...">
-                          <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Search</button>
-                          </span>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-9">
-                        <select>
-                             <option selected>Open this select menu</option>
-                          <option value="1">One</option>
-                          <option value="2">Two</option>
-                          <option value="3">Three</option>
-                        </select>
-                    </div>
-
-                </div>
 
 
                 <div class="row">
@@ -118,17 +98,38 @@
                                         </tbody>
                                     </table>
                                     <ul class="pagination" id="pagination"></ul>
-                                    <input type="hidden" value="" id="page" name="page"/>
-                                    <input type="hidden" value="" id="limit" name="limit"/>
-                                    <input type="hidden" value="" id="sortName" name="sortName"/>
-                                    <input type="hidden" value="" id="sortBy" name="sortBy"/>
+                                    <input type="hidden" value="1" id="page" name="page"/>
+                                    <input type="hidden" value="5" id="limit" name="limit"/>
+                                    <input type="hidden" value="id" id="sortName" name="sortName"/>
+                                    <input type="hidden" value="desc" id="sortBy" name="sortBy"/>
+                                    
                                 </div>
-
+                                
 
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                          <label for="sel1">Tìm kiếm theo:</label>
+                          <select class="form-control" id="searchKey" name="searchKey">
+                            <option value="title">Title</option>                                        
+                          </select>
+                        </div>
+                        
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Nhập vào để tìm kiếm" id="searchName" name="searchName" />
+                          <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Search</button>
+                          </span>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </form>
@@ -158,6 +159,8 @@
                     $('#page').val(page);
                     $('#sortName').val('id');
                     $('#sortBy').val('desc');
+                    $('#searchKey').val('${model.searchKey}');
+                    $('#searchName').val('${model.searchName}');
                     $('#formSubmit').submit();
                 }
             }

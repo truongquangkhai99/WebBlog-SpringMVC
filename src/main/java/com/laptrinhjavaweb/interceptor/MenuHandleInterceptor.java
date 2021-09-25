@@ -1,21 +1,19 @@
 package com.laptrinhjavaweb.interceptor;
 
-import com.laptrinhjavaweb.service.HomeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
 public class MenuHandleInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private HomeService homeService;
+//    @Autowired
+//    private HomeService homeService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        request.setAttribute("menus",homeService.loadMenu());
+//        request.setAttribute("menus",homeService.loadMenu());
         return true;
     }
 
