@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Trang Chu</title>
+    <title>Trang Chủ</title>
 
     <!-- Bootstrap core CSS -->
     <link href="<c:url value='/template/web/vendor/bootstrap/css/bootstrap.min.css'/>" rel="stylesheet" >

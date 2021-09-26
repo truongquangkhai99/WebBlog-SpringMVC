@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><dec:title default="Trang chủ" /></title>
+    <title><dec:title default="Trang Quản Trị" /></title>
     
 
     <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/bootstrap.min.css' />" />

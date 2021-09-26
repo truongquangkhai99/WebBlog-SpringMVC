@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://java.sun.com/xml/ns/javaee"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         xsi:schemaLocation="http://JAVA.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
     <display-name>spring-mvc</display-name>
 
@@ -14,7 +14,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/context/applicationContext.xml
-<!--            /WEB-INF/context/security.xml-->
+            /WEB-INF/context/security.xml
         </param-value>
     </context-param>
 
@@ -34,18 +34,14 @@
     </servlet-mapping>
 
 
-    <!-- Declare Spring Security Filter -->
     <filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
+	    <filter-name>springSecurityFilterChain</filter-name>
+	    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>springSecurityFilterChain</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
 
     <!-- sitemesh filter -->
     <filter>
