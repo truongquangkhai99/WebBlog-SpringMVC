@@ -7,24 +7,24 @@
 
 # Website Blog với các chức năng cơ bản
 ## Chức năng của quản trị
-- **[Quản lí bài viết]**
-- **[Quản lí thể loại]**
-- **[Quản lí người dùng]**
-- **[Quản lí Role]**
-- **[Quản lí Bình luận]**
+- **Quản lí bài viết**
+- **Quản lí thể loại**
+- **Quản lí người dùng**
+- **Quản lí Role**
+- **Quản lí Bình luận**
 ## Chức năng của soạn giả
-- **[Tạo bài viết]**
-- **[Xóa , sửa , quản lí danh sách bài viết của mình]**
-- **[Bình luân vào một bài viết]**
+- **Tạo bài viết**
+- **Xóa , sửa , quản lí danh sách bài viết của mình**
+- **Bình luân vào một bài viết**
 ## Chức năng của người dùng
-- **[Bình luận]**
-- **[Xem bài viết]**
+- **Bình luận**
+- **Xem bài viết**
 ## Đăng nhập , đăng ký
-- **[Sử dụng Spring Security]**
-- **[Đăng ký mật khẩu được Hash vào Database]**
+- **Sử dụng Spring Security**
+- **Đăng ký mật khẩu được Hash vào Database**
 ## Phân quyền
-- **[Sử dụng Spring Security]**
-- **[Có 3 quyền chính Admin,Write,User]** 
+- **Sử dụng Spring Security**
+- **Có 3 quyền chính Admin,Write,User** 
 ## Công nghệ sử dụng
 - **Spring Framework 4.3.13.RELEASE**
 - **Spring Security 3.2.8.RELEASE**
