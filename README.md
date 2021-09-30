@@ -33,4 +33,9 @@
 - **Spring Data JPA 1.11.5.RELEASE**
 - **Sitemesh 2.4.2**
 ## Áp dụng API cho trang quản trị
-- **Insert,Delete,Update*
+- **Insert,Delete,Update**
+## Spring Security
+- **Header Security**
+- **Session Management -> newSession to prevent Session Fixation**
+- **Authorization**
+- **Authentication**
