@@ -15,7 +15,7 @@
 ## Chức năng của soạn giả
 - **[Tạo bài viết]**
 - **[Xóa , sửa , quản lí danh sách bài viết của mình]**
-- **[Bình luân vào một bài viết]
+- **[Bình luân vào một bài viết]**
 ## Chức năng của người dùng
 - **[Bình luận]**
 - **[Xem bài viết]**
