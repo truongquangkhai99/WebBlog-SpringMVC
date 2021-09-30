@@ -39,3 +39,6 @@
 - **Session Management -> newSession to prevent Session Fixation**
 - **Authorization**
 - **Authentication**
+## Huớng dẫn tải về và cài đặt
+### Eclipse
+- **Import Project Maven -> Mở project -> Update Maven -> Open Terminal : mvn clean install**
