@@ -1,4 +1,4 @@
-**#Webiste Blog using Spring MVC and Spring Security**
-**#Đồ án thực tập**
+**Webiste Blog using Spring MVC and Spring Security**
+**Đồ án thực tập**
 
 
